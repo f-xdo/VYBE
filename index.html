@@ -1,0 +1,86 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>VYBE | The Internet, Decoded</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #0b0b12;
+      color: white;
+      text-align: center;
+    }
+    header {
+      padding: 24px;
+      border-bottom: 1px solid #292938;
+      color: #a78bfa;
+      font-size: 28px;
+      font-weight: bold;
+      letter-spacing: 4px;
+    }
+    main { padding: 70px 20px; }
+    h1 { font-size: 48px; }
+    h1 span { color: #a78bfa; }
+    p { color: #b8b8c8; line-height: 1.7; }
+    input {
+      padding: 14px;
+      width: 65%;
+      max-width: 350px;
+      border-radius: 8px;
+      border: 1px solid #44445a;
+      background: #171722;
+      color: white;
+    }
+    button {
+      padding: 14px 18px;
+      border: 0;
+      border-radius: 8px;
+      background: #a78bfa;
+      color: #111;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    .tag {
+      display: inline-block;
+      margin: 6px;
+      padding: 10px 14px;
+      border: 1px solid #393449;
+      border-radius: 20px;
+      color: #d6c8ff;
+    }
+  </style>
+</head>
+<body>
+  <header>VYBE.</header>
+  <main>
+    <p>WHAT'S HAPPENING ON THE INTERNET?</p>
+    <h1>Catch the <span>Vybe.</span></h1>
+    <p>Discover what's trending across the internet.<br>
+       One place. Countless conversations.</p>
+
+    <input id="topic" placeholder="Explore what's trending...">
+    <button onclick="explore()">Explore</button>
+
+    <div style="margin-top:30px">
+      <span class="tag">Technology</span>
+      <span class="tag">Business</span>
+      <span class="tag">Fashion</span>
+      <span class="tag">Entertainment</span>
+      <span class="tag">Science</span>
+    </div>
+    <p id="message"></p>
+  </main>
+
+  <script>
+    function explore() {
+      const topic = document.getElementById("topic").value.trim();
+      document.getElementById("message").textContent =
+        topic ? "Your next discovery: " + topic :
+        "Enter a topic to begin exploring!";
+    }
+  </script>
+</body>
+</html>
