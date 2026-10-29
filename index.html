@@ -75,12 +75,57 @@
   </main>
 
   <script>
-    function explore() {
-      const topic = document.getElementById("topic").value.trim();
-      document.getElementById("message").textContent =
-        topic ? "Your next discovery: " + topic :
-        "Enter a topic to begin exploring!";
+    
+async function explore() {
+  const topic = document.getElementById("topic").value.trim();
+  const message = document.getElementById("message");
+
+  if (!topic) {
+    message.textContent = "Enter a topic to explore!";
+    return;
+  }
+
+  message.textContent = "Discovering trends...";
+
+  try {
+    const response = await fetch(
+      "https://trends.google.com/trending/rss?geo=US"
+    );
+
+    if (!response.ok) {
+      throw new Error("Could not load trends");
     }
+
+    const xmlText = await response.text();
+    const xml = new DOMParser().parseFromString(
+      xmlText,
+      "text/xml"
+    );
+
+    const items = [...xml.querySelectorAll("item")];
+
+    const matches = items.filter(item =>
+      item.querySelector("title")?.textContent
+        .toLowerCase()
+        .includes(topic.toLowerCase())
+    );
+
+    if (matches.length === 0) {
+      message.textContent =
+        "No matching trending topics found. Try another keyword!";
+      return;
+    }
+
+    message.textContent = matches
+      .map(item => "🔥 " + item.querySelector("title").textContent)
+      .join("\n");
+
+  } catch (error) {
+    message.textContent =
+      "Trend feed couldn't load directly. A backend connection may be needed.";
+  }
+}
+
   </script>
 </body>
 </html>
